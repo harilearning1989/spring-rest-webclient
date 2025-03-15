@@ -1,5 +1,6 @@
 package com.web.demo.controls;
 
+import com.web.demo.records.Book;
 import com.web.demo.records.Posts;
 import com.web.demo.records.Product;
 import com.web.demo.services.FakeWebClientService;
@@ -28,6 +29,12 @@ public class FakeWebClientController {
     public Flux<Product> getProducts() {
         return fakeApiService.fetchProducts();
     }
+
+    @GetMapping(value = "/books", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Book> getBooks() {
+        return fakeApiService.fetchBooks();
+    }
+
 
 }
 

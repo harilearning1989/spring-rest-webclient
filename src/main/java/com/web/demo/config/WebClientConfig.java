@@ -1,5 +1,6 @@
 package com.web.demo.config;
 
+import com.web.demo.services.clients.BookRestClient;
 import com.web.demo.services.clients.JsonPlaceHolderClient;
 import com.web.demo.services.clients.ProductRestClient;
 import org.slf4j.Logger;
@@ -17,9 +18,11 @@ public class WebClientConfig {
     private static final Logger LOGGER = LoggerFactory.getLogger(WebClientConfig.class);
 
     @Value("${json.placeholder}")
-    String jsonPlaceHolder;
+    private String jsonPlaceHolder;
     @Value("${json.products}")
-    String jsonProducts;
+    private String jsonProducts;
+    @Value("${json.fakeRestApi}")
+    private String fakeRestApi;
 
     @Value("${header.key}")
     private String headerKey;
@@ -28,22 +31,29 @@ public class WebClientConfig {
 
     @Bean
     public JsonPlaceHolderClient jsonPlaceHolderClient() {
-        LOGGER.info("WebClientConfig  jsonPlaceHolderClient");
+        LOGGER.info("WebClientConfig  jsonPlaceHolder::{}", jsonPlaceHolder);
         Map<String, String> headersMap = new HashMap<>();
         headersMap.put(headerKey, headerValue);
-        LOGGER.info("WebClientConfig  jsonPlaceHolder::{}",jsonPlaceHolder);
         return new CommonWebClient()
                 .createClient(JsonPlaceHolderClient.class, jsonPlaceHolder, headersMap);
     }
 
     @Bean
     public ProductRestClient jsonProductsClient() {
-        LOGGER.info("WebClientConfig  jsonProducts");
+        LOGGER.info("WebClientConfig  jsonProducts::{}", jsonProducts);
         Map<String, String> headersMap = new HashMap<>();
         headersMap.put(headerKey, headerValue);
-        LOGGER.info("WebClientConfig  jsonProducts::{}",jsonProducts);
         return new CommonWebClient()
                 .createClient(ProductRestClient.class, jsonProducts, headersMap);
+    }
+
+    @Bean
+    public BookRestClient bookRestClient() {
+        LOGGER.info("WebClientConfig  fakeRestApi::{}", fakeRestApi);
+        Map<String, String> headersMap = new HashMap<>();
+        headersMap.put(headerKey, headerValue);
+        return new CommonWebClient()
+                .createClient(BookRestClient.class, fakeRestApi, headersMap);
     }
 
 }

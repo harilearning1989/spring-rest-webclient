@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.service.annotation.*;
 import reactor.core.publisher.Flux;
 
-@HttpExchange("/posts")
+@HttpExchange("posts")
 public interface JsonPlaceHolderClient {
 
     @GetExchange
